@@ -5,10 +5,15 @@ namespace RipOffMotivator.Models
 {
 	public class Goal
 	{
-		public Guid TagId;
+		public Guid TagId { get; set; }
 
-		public string Title;
-		public DateTime Date;
-		public decimal Amount;
+		public string Title { get; set; }
+		public DateTime Date { get; set; }
+		public decimal Amount { get; set; }
+
+		internal bool IsExpired(DateTime? now = default(DateTime?))
+		{
+			return Date < (now?? DateTime.Now);
+		}
 	}
 }

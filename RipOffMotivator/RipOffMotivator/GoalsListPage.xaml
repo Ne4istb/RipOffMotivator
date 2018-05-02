@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-                   xmlns:local="clr-namespace:RipOffMotivator;assembly=RipOffMotivator"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    x:Class="RipOffMotivator.GoalListPage"
                    Title="Goals">
@@ -15,9 +14,16 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
-							<Label Text="{Binding Title}" />
-						</StackLayout>
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.5*" />
+								<ColumnDefinition Width="0.3*" />
+								<ColumnDefinition Width="0.2*" />
+							</Grid.ColumnDefinitions>
+							<Label Text="{Binding Title}" VerticalTextAlignment="Center" Font="Medium,Bold" />
+							<Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:g}'}"  VerticalTextAlignment="Center" Font="Micro" />
+							<Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:C}'}" VerticalTextAlignment="Center" Font="Micro" HorizontalOptions="EndAndExpand" />
+						</Grid>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 using RipOffMotivator.Models;
@@ -13,9 +14,9 @@ namespace RipOffMotivator.Data
 		const string GoalsKey = "GOALS";
 		const string TagsKey = "TAGS";
 		IList<Goal> goals;
-		int goalsCount = 0;
+		bool goalsDirty = false;
 		IList<Tag> tags;
-		int tagsCount = 0;
+		bool tagsDirty = false;
 
 		readonly Application appProperties;
 		
@@ -39,12 +40,22 @@ namespace RipOffMotivator.Data
 
 		public Task Commit()
 		{
-			if (goals != null && goalsCount != goals.Count)
+			var commit = false;
+			if (goals != null && goalsDirty)
+			{
 				appProperties.Properties[GoalsKey] = Serialization.SerializeToJson(goals);
-			if (tags != null && tagsCount != tags.Count)
+				goalsDirty = false;
+				commit = true;
+			}
+			
+			if (tags != null && tagsDirty)
+			{
 				appProperties.Properties[TagsKey] = Serialization.SerializeToJson(tags);
+				tagsDirty = false;
+				commit = true;
+			}
 
-			return appProperties.SavePropertiesAsync();
+			return commit ? appProperties.SavePropertiesAsync() : Task.Delay(0);
 		}
 
 		IList<Goal> ReadGoals()
@@ -52,8 +63,8 @@ namespace RipOffMotivator.Data
 			if (appProperties.Properties.ContainsKey(GoalsKey))
 			{
 				var list = Serialization.DeserializeFromJson<IList<Goal>>((string)appProperties.Properties[GoalsKey]);
-				goalsCount = list.Count;
-				return list;
+				goalsDirty = list.Any(g=> g.IsExpired(DateTime.Now));
+				return list.Where(g=> !g.IsExpired(DateTime.Now)).ToList();
 			}
 
 			return null;
@@ -62,11 +73,7 @@ namespace RipOffMotivator.Data
 		IList<Tag> ReadTags()
 		{
 			if (appProperties.Properties.ContainsKey(TagsKey))
-			{
-				var list = Serialization.DeserializeFromJson<IList<Tag>>((string)appProperties.Properties[TagsKey]);
-				tagsCount = list.Count;
-				return list;
-			}
+				return Serialization.DeserializeFromJson<IList<Tag>>((string)appProperties.Properties[TagsKey]);
 			return null;
 		}
 	}
