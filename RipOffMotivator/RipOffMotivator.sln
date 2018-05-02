@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RipOffMotivator", "RipOffMotivator\RipOffMotivator.csproj", "{4EF8BDB1-58DF-442C-837A-2DF4CA805AD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartContractsProxy", "SmartContractsProxy\SmartContractsProxy.csproj", "{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{4EF8BDB1-58DF-442C-837A-2DF4CA805AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4EF8BDB1-58DF-442C-837A-2DF4CA805AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4EF8BDB1-58DF-442C-837A-2DF4CA805AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
