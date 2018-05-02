@@ -13,5 +13,6 @@
 	<StackLayout>
 		<ListView ItemsSource="{x:Static local:App.Goals}" />
 		<Button Text="Create New" Clicked="OnCreateGoal" />
+		<Button Text="Add Trigger" Clicked="OnAddTrigger" />
 	</StackLayout>
 </ContentPage>
