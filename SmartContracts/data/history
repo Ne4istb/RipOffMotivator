@@ -1,0 +1,4 @@
+учше
+eth.getBalance(eth.coinbase)
+miner.start(1)
+eth.getBalance(eth.coinbase)
