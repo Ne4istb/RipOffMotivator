@@ -16,7 +16,7 @@ namespace RipOffMotivator
         {
             InitializeComponent();
             Goals = new List<string>();
-            MainPage = new NavigationPage(new CreateGoalPage());
+            MainPage = new NavigationPage(new GoalListPage());
         }
 
         protected override void OnStart()
