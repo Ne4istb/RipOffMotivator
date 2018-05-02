@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    xmlns:sys="clr-namespace:System;assembly=netstandard"
-                   x:Class="RipOffMotivator.AddTriggerPage">
+                   x:Class="RipOffMotivator.AddTagPage">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS" Value="20, 40, 20, 20" />
@@ -11,9 +11,6 @@
     </ContentPage.Padding>
     <StackLayout>
 		<StackLayout Orientation="Horizontal">
-			<Label Text="Message: "
-				   VerticalOptions="Center" />
-
 			<Entry x:Name="triggerName"  Text=""
 				   Placeholder="Message"
 				   HorizontalOptions="FillAndExpand"
@@ -21,6 +18,7 @@
 		</StackLayout>
 		
         <Button Text="Scan" Clicked="OnScan" />
+		<Button Text="View Tags" Clicked="OnViewTags" />
         <Button Text="View Goals" Clicked="OnViewGoals" />
     </StackLayout>
 </ContentPage>

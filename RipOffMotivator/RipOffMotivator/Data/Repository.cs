@@ -30,11 +30,13 @@ namespace RipOffMotivator.Data
 
 		public void AddGoal(Goal goal)
 		{
+			goalsDirty = true;
 			Goals.Add(goal);
 		}
 
 		public void AddTag(Tag tag)
 		{
+			tagsDirty = true;
 			Tags.Add(tag);
 		}
 
@@ -75,6 +77,20 @@ namespace RipOffMotivator.Data
 			if (appProperties.Properties.ContainsKey(TagsKey))
 				return Serialization.DeserializeFromJson<IList<Tag>>((string)appProperties.Properties[TagsKey]);
 			return null;
+		}
+
+		public void RemoveTag(Tag tag)
+		{
+			if (Tags.Remove(tag))
+			{
+				tagsDirty = true;
+			}
+		}
+
+		public void TagUsed(Guid tagId)
+		{
+			Tags.First(t => t.Id == tagId).Used = true;
+			tagsDirty = true;
 		}
 	}
 }

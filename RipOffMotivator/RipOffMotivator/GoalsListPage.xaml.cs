@@ -15,7 +15,7 @@ namespace RipOffMotivator
 
 		public GoalListPage(Repository repository)
 		{
-			InitializeComponent ();
+			InitializeComponent();
 			repo = repository;
 
 			listView.ItemsSource = repo.Goals;
@@ -23,12 +23,18 @@ namespace RipOffMotivator
 
 		async void OnCreateGoal(object sender, EventArgs e)
 		{
+			if (!repo.Tags.Any())
+			{
+				await DisplayAlert("No tags entered!", "Please add some tags first", "Ok");
+				return;
+			}
+
 			await Navigation.PushAsync(new CreateGoalPage(repo));
 		}
 
-		async void OnAddTrigger(object sender, EventArgs e)
+		async void OnAddTag(object sender, EventArgs e)
 		{
-			await Navigation.PushAsync(new AddTriggerPage(repo));
+			await Navigation.PushAsync(new AddTagPage(repo));
 		}
 	}
 }

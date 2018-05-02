@@ -23,15 +23,18 @@ namespace RipOffMotivator.Droid.NFCModule
             NfcAdapter = nfcAdapter;
         }
 
-        public void CreateNFCTag(string message, Guid id)
+        public Task<Guid> CreateNFCTag(string message)
         {
             Message = message;
-            Id = id;
+            Id = Guid.NewGuid();
 
-            EnableWriteMode();
-        }
+			if (EnableWriteMode())
+				return Task.FromResult(Id);
 
-        private void EnableWriteMode()
+			return Task.FromException<Guid>(new NotSupportedException("NFCT is not supported"));
+		}
+
+		bool EnableWriteMode()
         {
             InWriteMode = true;
 
@@ -41,15 +44,20 @@ namespace RipOffMotivator.Droid.NFCModule
             var intent = new Intent(this, GetType()).AddFlags(ActivityFlags.SingleTop);
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, 0);
 
-            if (NfcAdapter != null)
-                NfcAdapter.EnableForegroundDispatch(this, pendingIntent, filters, null);
-            else
+			if (NfcAdapter != null)
+			{
+				NfcAdapter.EnableForegroundDispatch(this, pendingIntent, filters, null);
+				return true;
+			}
+			else
             {
                 var alert = new AlertDialog.Builder(this).Create();
                 alert.SetMessage("NFC is not supported on this device.");
                 alert.SetTitle("NFC Unavailable");
                 alert.Show();
-            }
+
+				return false;
+			}
         }
 
         protected override void OnNewIntent(Intent intent)
@@ -111,10 +119,5 @@ namespace RipOffMotivator.Droid.NFCModule
 
             return true;
         }
-
-		public Task<Guid> CreateNFCTag(string message)
-		{
-			throw new NotImplementedException();
-		}
 	}
 }

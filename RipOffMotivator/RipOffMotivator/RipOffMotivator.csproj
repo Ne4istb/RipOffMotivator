@@ -24,8 +24,11 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
-    <Compile Update="AddTriggerPage.xaml.cs">
-      <DependentUpon>AddTriggerPage.xaml</DependentUpon>
+    <Compile Update="AddTagPage.xaml.cs">
+      <DependentUpon>AddTagPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="TagsListPage.xaml.cs">
+      <DependentUpon>TagsListPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="GoalsListPage.xaml.cs">
       <DependentUpon>GoalsListPage.xaml</DependentUpon>

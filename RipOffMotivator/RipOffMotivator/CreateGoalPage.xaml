@@ -22,6 +22,8 @@
 						Format="g"
 						MinimumDate="{x:Static sys:DateTime.Now}"/>
 
+		<Picker Title="Select a tag" ItemsSource="{Binding Tags}" ItemDisplayBinding="{Binding Title}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" />
+
 		<Button Text="Add Goal" Clicked="OnAddGoal" />
 		<Button Text="View Goals" Clicked="OnViewGoals" />
 	</StackLayout>
