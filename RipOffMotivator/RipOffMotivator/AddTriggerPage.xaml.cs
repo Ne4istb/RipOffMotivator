@@ -6,12 +6,9 @@ namespace RipOffMotivator
 {
     public partial class AddTriggerPage : ContentPage
     {
-		private readonly INfcScaner nfcScaner;
-
 		public AddTriggerPage()
         {
-			nfcScaner = DependencyService.Get<INfcScaner>();
-
+			
 			InitializeComponent();
         }
 
@@ -25,5 +22,5 @@ namespace RipOffMotivator
         {
             await Navigation.PushAsync(new GoalListPage());
         }
-    }
+	}
 }

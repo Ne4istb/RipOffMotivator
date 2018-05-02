@@ -19,9 +19,9 @@ namespace RipOffMotivator
 			await Navigation.PushAsync(new CreateGoalPage());
 		}
 
-		void OnAddTrigger(object sender, EventArgs e)
+		async void OnAddTrigger(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			await Navigation.PushAsync(new AddTriggerPage());
 		}
 	}
 }

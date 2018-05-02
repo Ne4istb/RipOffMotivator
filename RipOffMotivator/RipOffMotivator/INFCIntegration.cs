@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Linq;
 
-namespace RipOffMotivator.Droid.NFCModule
+namespace RipOffMotivator
 {
     public interface INFCIntegration
     {
