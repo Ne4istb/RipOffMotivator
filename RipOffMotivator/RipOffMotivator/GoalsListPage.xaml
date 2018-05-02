@@ -11,7 +11,18 @@
         </OnPlatform>
     </ContentPage.Padding>
 	<StackLayout>
-		<ListView ItemsSource="{x:Static local:App.Goals}" />
+		<ListView x:Name="listView">
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<ViewCell>
+						<StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal">
+							<Label Text="{Binding Title}" />
+						</StackLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
 		<Button Text="Create New" Clicked="OnCreateGoal" />
 		<Button Text="Add Trigger" Clicked="OnAddTrigger" />
 	</StackLayout>

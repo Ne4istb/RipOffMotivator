@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 
+using RipOffMotivator.Data;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,13 +12,13 @@ namespace RipOffMotivator
 {
     public partial class App : Application
     {
-        public static IList<string> Goals { get; set; }
+		readonly Repository repo;
 
-        public App()
+		public App()
         {
             InitializeComponent();
-            Goals = new List<string>();
-            MainPage = new NavigationPage(new GoalListPage());
+			repo = new Repository(Current);
+			MainPage = new NavigationPage(new GoalListPage(repo));
         }
 
         protected override void OnStart()
@@ -25,9 +27,9 @@ namespace RipOffMotivator
         }
 
         protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
+		{
+			repo.Commit();
+		}
 
         protected override void OnResume()
         {

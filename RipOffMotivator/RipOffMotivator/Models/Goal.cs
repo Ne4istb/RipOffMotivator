@@ -8,7 +8,7 @@ namespace RipOffMotivator.Models
 		public Guid TagId;
 
 		public string Title;
-		public DateTime Time;
+		public DateTime Date;
 		public decimal Amount;
 	}
 }

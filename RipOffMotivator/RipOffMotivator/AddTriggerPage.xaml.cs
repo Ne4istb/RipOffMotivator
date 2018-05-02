@@ -1,16 +1,21 @@
 ﻿using System;
 
+using RipOffMotivator.Data;
+using RipOffMotivator.Models;
+
 using Xamarin.Forms;
 
 namespace RipOffMotivator
 {
     public partial class AddTriggerPage : ContentPage
 	{
+		readonly Repository repo;
 		INFCIntegration nfc;
-		public AddTriggerPage()
-        {
+		public AddTriggerPage(Repository repo)
+		{
+			this.repo = repo;
 			InitializeComponent();
-        }
+		}
 
 		async void OnScan(object sender, EventArgs e)
 		{
@@ -27,12 +32,13 @@ namespace RipOffMotivator
 
 		void StoreTag(Guid tagId, string title)
 		{
-			throw new NotImplementedException();
+			repo.AddTag(new Tag{Id= tagId, Title = title});
+			repo.Commit().Wait();
 		}
 
 		async void OnViewGoals(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new GoalListPage());
+            await Navigation.PushAsync(new GoalListPage(repo));
         }
 	}
 }

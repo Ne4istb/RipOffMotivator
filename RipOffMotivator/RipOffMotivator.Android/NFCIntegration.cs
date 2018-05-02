@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+
 using Android.App;
 using Android.Content;
 using Android.Nfc;
@@ -109,5 +111,10 @@ namespace RipOffMotivator.Droid.NFCModule
 
             return true;
         }
-    }
+
+		public Task<Guid> CreateNFCTag(string message)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

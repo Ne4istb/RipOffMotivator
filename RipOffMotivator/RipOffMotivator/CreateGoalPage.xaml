@@ -3,40 +3,26 @@
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                    xmlns:sys="clr-namespace:System;assembly=netstandard"
                    x:Class="RipOffMotivator.CreateGoalPage">
-    <ContentPage.Padding>
-        <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="iOS" Value="20, 40, 20, 20" />
-            <On Platform="Android, UWP" Value="20" />
-        </OnPlatform>
-    </ContentPage.Padding>
-    <StackLayout>
-		<StackLayout Orientation="Horizontal">
-			<Label Text="Title: "
-				   VerticalOptions="Center" />
-
-			<Entry x:Name="goalTitle"  Text=""
-				   Placeholder="Goal name"
+	<ContentPage.Padding>
+		<OnPlatform x:TypeArguments="Thickness">
+			<On Platform="iOS" Value="20, 40, 20, 20" />
+			<On Platform="Android, UWP" Value="20" />
+		</OnPlatform>
+	</ContentPage.Padding>
+	<StackLayout>
+		<Entry x:Name="goalTitle"  Text=""
+				   Placeholder="Title"
 				   HorizontalOptions="FillAndExpand"
 				   VerticalOptions="Center" />
-		</StackLayout>
-		<StackLayout Orientation="Horizontal">
-			<Label Text="Amount: "
-				   VerticalOptions="Center" />
-
-			<Entry x:Name="goalPrice"  Text=""
+		<Entry x:Name="goalPrice"  Text=""
 				   Placeholder="Goal price"
 				   HorizontalOptions="FillAndExpand"
 				   VerticalOptions="Center" />
-		</StackLayout>
-		<StackLayout Orientation="Horizontal">
-			<Label Text="Date: "
-				   VerticalOptions="Center" />
-			<DatePicker x:Name="goalDate"
+		<DatePicker x:Name="goalDate"
 						Format="g"
 						MinimumDate="{x:Static sys:DateTime.Now}"/>
-		</StackLayout>
 
-        <Button Text="Add Goal" Clicked="OnAddGoal" />
-        <Button Text="View Goals" Clicked="OnViewGoals" />
-    </StackLayout>
+		<Button Text="Add Goal" Clicked="OnAddGoal" />
+		<Button Text="View Goals" Clicked="OnViewGoals" />
+	</StackLayout>
 </ContentPage>
