@@ -55,8 +55,7 @@
   <ItemGroup>
     <Compile Include="ContractService.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="NFCModule\INFCIntegration.cs" />
-    <Compile Include="NFCModule\NFCIntegration.cs" />
+    <Compile Include="NFCIntegration.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

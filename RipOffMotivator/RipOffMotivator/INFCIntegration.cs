@@ -2,7 +2,7 @@
 
 namespace RipOffMotivator.Droid.NFCModule
 {
-    interface INFCIntegration
+    public interface INFCIntegration
     {
         void CreateNFCTag(string message, Guid id);
     }
