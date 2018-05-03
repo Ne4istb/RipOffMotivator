@@ -2,22 +2,27 @@ pragma solidity ^0.4.0;
 
 contract Motivator {
     struct Bet {
+		string id;
 		uint endTime;
         uint deposit;
-		bool open;
     }
 
 	mapping(address => Bet[]) bets;
 
 
-    modifier valideIndex(uint _index) { 
+    function getBetIndex(string id) private view returns (uint){ 
+        for (uint i = 0; i < bets[msg.sender].length; ++i) {
+            if( keccak256( bets[msg.sender][i].id ) == keccak256( id)  ){
+                return i;
+            } 
+        }
+        
         require(
-            _index < bets[msg.sender].length,
+            false,
             "invalide access key"
         );
-        _; 
-        
     }
+    
 
     modifier onlyBefore(uint _index) { 
         require(
@@ -28,26 +33,33 @@ contract Motivator {
         
     }
    
-    function betting(uint endTime) public payable returns (uint){
-        uint length = bets[msg.sender].length;
+    function betting(string uuid, uint endTime) public payable{
 
 	    bets[msg.sender].push(Bet({
+	        id: uuid,
 	        endTime: endTime,
-            deposit: msg.value,
-            open: true
+            deposit: msg.value
         }));
-        
-        return 123;
+
    }
 
-    function reject(uint index) 
+    function reject(string id) 
         public
-        valideIndex(index)
-        onlyBefore(index)
     {
-        Bet bet = bets[msg.sender][index];
-        bet.open = false;
-        msg.sender.transfer(bet.deposit);
+        Bet memory bet;
+        uint index;
+        
+        index = getBetIndex(id);
+        bet = bets[msg.sender][index];
+        
+        require(
+            now < bet.endTime,
+           "outdate time"
+        );
+        
+        uint deposit = bet.deposit;
+        delete bets[msg.sender][index];
+        msg.sender.transfer(deposit);
     }
 
 
