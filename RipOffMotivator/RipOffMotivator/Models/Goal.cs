@@ -9,7 +9,7 @@ namespace RipOffMotivator.Models
 		public DateTime Date { get; set; }
 		public long Amount { get; set; }
 
-		public Guid TagId { get; set; }
+		public string TagId { get; set; }
 
 		public string RejectTrigger { get; set; }
 
