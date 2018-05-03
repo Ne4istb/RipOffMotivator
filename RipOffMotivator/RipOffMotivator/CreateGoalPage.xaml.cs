@@ -20,7 +20,7 @@ namespace RipOffMotivator
 			this.repo = repo;
 
 			InitializeComponent();
-			BindingContext = new {Tags = repo.Tags, SelectedTag = repo.Tags.FirstOrDefault()};
+			BindingContext = new CreateGoalBC{Tags = repo.Tags, SelectedTag = repo.Tags.FirstOrDefault()};
 		}
 
 		async void OnAddGoal(object sender, EventArgs e)
@@ -37,8 +37,8 @@ namespace RipOffMotivator
 			var time = goalTime.Time;
 			if (!string.IsNullOrWhiteSpace(title) && long.TryParse(goalPrice.Text, out long amount))
 			{
-				var tag = (Tag)((dynamic)BindingContext).SelectedTag;
-			    var rejectId = await contractService.Value.AddGoalAsync(amount, date);
+				var tag = ((CreateGoalBC)BindingContext).SelectedTag;
+				var rejectId = Guid.NewGuid().ToString();//await contractService.Value.AddGoalAsync(amount, date);
 				repo.AddGoal(new Goal {
 					Amount = amount,
 					Date = new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, 0),
