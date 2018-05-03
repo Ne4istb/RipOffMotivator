@@ -73,6 +73,7 @@ namespace RipOffMotivator.Droid
 
             var record = (((NdefMessage)rawMessages[0]).GetRecords())[0];
 
+
             intent.PutExtra("Id", record.GetId());
             StartService(intent);
         }
