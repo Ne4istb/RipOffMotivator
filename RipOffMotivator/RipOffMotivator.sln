@@ -4,9 +4,11 @@ VisualStudioVersion = 15.0.27428.2043
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RipOffMotivator.Android", "RipOffMotivator.Android\RipOffMotivator.Android.csproj", "{4EF8BDB1-58DF-442C-837A-2DF4CA805AD7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RipOffMotivator", "RipOffMotivator\RipOffMotivator.csproj", "{B4201D91-E336-42ED-802C-9CFC31CF8549}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RipOffMotivator", "RipOffMotivator\RipOffMotivator.csproj", "{B4201D91-E336-42ED-802C-9CFC31CF8549}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartContractsProxy", "SmartContractsProxy\SmartContractsProxy.csproj", "{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestContract", "TestContract\TestContract.csproj", "{379C54CA-9684-49D2-9FC2-2CE4677945D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C28AE65-0E0F-479D-9FB9-7C07FB6D56F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{379C54CA-9684-49D2-9FC2-2CE4677945D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{379C54CA-9684-49D2-9FC2-2CE4677945D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{379C54CA-9684-49D2-9FC2-2CE4677945D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{379C54CA-9684-49D2-9FC2-2CE4677945D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
