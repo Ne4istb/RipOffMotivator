@@ -10,8 +10,8 @@ namespace SmartContractsProxy
     public class SmartContractsProxy : ISmartContractsProxy
     {
         // TODO: move to config
-        const string AbiFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/Contracts/RipOffMotivator_sol_RipOffMotivator.abi";
-        const string ContractAdress = "0x43985f558b7e57cd0879c555d14ac85649276532";
+        const string AbiFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/Contracts/Motivator_sol_Motivator.abi";
+        const string ContractAdress = "0x11c497098f270cc6cfeda25bbd1c406027bc1cf8";
         const string SenderAddress = "";
 
         readonly Web3 web3;
@@ -33,12 +33,12 @@ namespace SmartContractsProxy
             var gas = new HexBigInteger(1000000);
             var weis = ConvertMillietherToWei(amountInMilliethers);
 
-            var rejectionId = await betting.CallAsync<long>(fromAddress, gas, gas, weis, ToUnixTime(executionTime));
+            var rejectionId = await betting.CallAsync<long>(fromAddress, gas, weis, ToUnixTime(executionTime));
             return rejectionId.ToString();
         }
 
-        long ConvertMillietherToWei(long amount){
-            return (long)(amount * Math.Pow(10, 15));
+        HexBigInteger ConvertMillietherToWei(long amount){
+            return new HexBigInteger((long)(amount * Math.Pow(10, 15)));
         }
 
         public async Task RejectAsync(string rejectionId)

@@ -37,7 +37,7 @@ contract Motivator {
             open: true
         }));
         
-        return length;
+        return 123;
    }
 
     function reject(uint index) 
