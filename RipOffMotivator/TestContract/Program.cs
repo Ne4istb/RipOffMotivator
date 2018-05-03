@@ -13,11 +13,11 @@ namespace TestContract
         static async Task MainAsync(string[] args)
         {
             var sc = new SmartContractsProxy.SmartContractsProxy();
-            var rejectionId = await sc.AddGoalAsync(1000, DateTime.Now);
-            Console.WriteLine($"To reject: {rejectionId}");
+            var rejectId = await sc.AddGoalAsync(100, DateTime.Now);
+            Console.WriteLine("Hello World!");
 
-            //var get = await sc.RejectAsync(Guid.NewGuid());
-            //Console.WriteLine("Weeee!");
+            await sc.RejectAsync(rejectId);
+            Console.WriteLine("Weeee!");
 
         }
     }
