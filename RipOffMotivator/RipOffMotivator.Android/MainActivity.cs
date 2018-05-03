@@ -64,19 +64,14 @@ namespace RipOffMotivator.Droid
                 return;
             }
 
-            if (!intentAction.Equals("android.nfc.action.TAG_DISCOVERED") && !intentType.Equals(ViewApeMimeType))
-                return;
+          if (!intentAction.Equals("android.nfc.action.TAG_DISCOVERED") && !intentType.Equals(ViewApeMimeType))
+				return;
 
-            var rawMessages = intent.GetParcelableArrayExtra(NfcAdapter.ExtraNdefMessages);
-            if (rawMessages == null)
-                return;
+			var tag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
+			var tagId = System.Text.Encoding.UTF8.GetString(tag.GetId());
 
-            var record = (((NdefMessage)rawMessages[0]).GetRecords())[0];
-
-
-            intent.PutExtra("Id", record.GetId());
-            StartService(intent);
-        }
+			GoalResolved(tagId);
+		}
 
         protected override void OnResume()
         {
@@ -93,6 +88,11 @@ namespace RipOffMotivator.Droid
         public static void EnableWriteMode() {
             nfc.InWriteMode = true;
         }
-    }
+
+		void GoalResolved(string tagId)
+		{
+			((App)Xamarin.Forms.Application.Current).ResolveGoal(tagId);
+		}
+	}
 }
 

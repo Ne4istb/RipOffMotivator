@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 using RipOffMotivator.Data;
+using RipOffMotivator.Models;
+
+using SmartContractsProxy;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -13,6 +16,8 @@ namespace RipOffMotivator
     public partial class App : Application
     {
 		readonly Repository repo;
+		readonly Lazy<ISmartContractsProxy> contractService = new Lazy<ISmartContractsProxy>(() => new SmartContractsProxy.SmartContractsProxy());
+
 
 		public App()
         {
@@ -21,7 +26,17 @@ namespace RipOffMotivator
 			MainPage = new NavigationPage(new GoalListPage(repo));
         }
 
-        protected override void OnStart()
+		public async void ResolveGoal(string tagId)
+		{
+			if (repo.GoalResolved(tagId, out Goal resolved))
+			{
+				await contractService.Value.RejectAsync(resolved.RejectTrigger);
+			}
+
+			MainPage = new NavigationPage(new GoalListPage(repo));
+		}
+
+		protected override void OnStart()
         {
             // Handle when your app starts
         }
@@ -35,5 +50,5 @@ namespace RipOffMotivator
         {
             // Handle when your app resumes
         }
-    }
+	}
 }

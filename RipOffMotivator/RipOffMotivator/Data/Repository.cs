@@ -14,6 +14,7 @@ namespace RipOffMotivator.Data
 	{
 		const string GoalsKey = "GOALS";
 		const string TagsKey = "TAGS";
+
 		IList<Goal> goals;
 		bool goalsDirty = false;
 		IList<Tag> tags;
@@ -33,6 +34,22 @@ namespace RipOffMotivator.Data
 		{
 			goalsDirty = true;
 			Goals.Add(goal);
+		}
+
+
+		public bool GoalResolved(string tagId, out Goal resolved)
+		{
+			var goal = Goals.OrderBy(g=> g.Date).FirstOrDefault(g => g.TagId == tagId);
+			if (goal != null)
+			{
+				goalsDirty = true;
+				resolved = goal;
+				Goals.Remove(goal);
+				return true;
+			}
+
+			resolved = null;
+			return false;
 		}
 
 		public void AddTag(Tag tag)
