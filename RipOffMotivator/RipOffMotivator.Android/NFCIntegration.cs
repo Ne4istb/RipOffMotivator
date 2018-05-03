@@ -23,7 +23,12 @@ namespace RipOffMotivator.Droid
             NfcAdapter = NfcAdapter.GetDefaultAdapter(Context);
         }
 
-        void EnableWriteMode()
+		public void SetContext(Context ctx)
+		{
+			Context = ctx;
+		}
+
+		void EnableWriteMode()
         {
             InWriteMode = true;
 
@@ -123,6 +128,7 @@ namespace RipOffMotivator.Droid
             Action(new Guid(id), Message);
             return true;
         }
+
         public void CreateNFCTag(string message, Action<Guid, string> action)
         {
             Message = message;
