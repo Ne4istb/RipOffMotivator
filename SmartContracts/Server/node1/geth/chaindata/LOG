@@ -1,0 +1,30 @@
+=============== May 3, 2018 (EEST) ===============
+16:08:40.085122 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+16:08:40.086655 db@open opening
+16:08:40.091153 version@stat F·[] S·0B[] Sc·[]
+16:08:40.091689 db@janitor F·2 G·0
+16:08:40.092014 db@open done T·5.32728ms
+=============== May 3, 2018 (EEST) ===============
+16:09:16.048850 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+16:09:16.050101 version@stat F·[] S·0B[] Sc·[]
+16:09:16.050139 db@open opening
+16:09:16.050219 journal@recovery F·1
+16:09:16.056435 journal@recovery recovering @1
+16:09:16.058914 memdb@flush created L0@2 N·16 S·1KiB "%\x98j..9\x13\xff,v7":"\xafm\xfd..\t\x95\x92,v6"
+16:09:16.064013 version@stat F·[1] S·1KiB[1KiB] Sc·[0.25]
+16:09:16.064923 db@janitor F·3 G·0
+16:09:16.064963 db@open done T·14.805734ms
+16:12:09.896313 db@close closing
+16:12:09.896944 db@close done T·626.347µs
+=============== May 3, 2018 (EEST) ===============
+16:12:20.259378 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+16:12:20.260153 version@stat F·[1] S·1KiB[1KiB] Sc·[0.25]
+16:12:20.260191 db@open opening
+16:12:20.260274 journal@recovery F·1
+16:12:20.265021 journal@recovery recovering @3
+16:12:20.265791 memdb@flush created L0@5 N·3 S·290B "Blo..ion,v19":"dbU..ata,v18"
+16:12:20.270439 version@stat F·[2] S·1KiB[1KiB] Sc·[0.50]
+16:12:20.272813 db@janitor F·4 G·0
+16:12:20.272867 db@open done T·12.65682ms
+16:18:14.335115 db@close closing
+16:18:14.335273 db@close done T·156.27µs
