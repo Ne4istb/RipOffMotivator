@@ -4,6 +4,6 @@ namespace RipOffMotivator
 {
     public interface INFCIntegration
     {
-        void CreateNFCTag(string message, Action<Guid, string> action);
+        void CreateNFCTag(string message, Action<string, string> action);
     }
 }

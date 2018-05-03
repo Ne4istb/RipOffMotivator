@@ -89,7 +89,7 @@ namespace RipOffMotivator.Data
 		void UpdateUsed(IList<Tag> list)
 		{
 			list.ForEach(t => {
-				var used = Goals.Any(g => g.TagId == t.Id);
+				var used = Goals.Any(g => g.TagId == t.SerialNumber);
 				tagsDirty = tagsDirty || used != t.Used;
 				t.Used = used;
 			});
@@ -103,9 +103,9 @@ namespace RipOffMotivator.Data
 			}
 		}
 
-		public void TagUsed(Guid tagId)
+		public void TagUsed(string tagId)
 		{
-			Tags.First(t => t.Id == tagId).Used = true;
+			Tags.First(t => t.SerialNumber == tagId).Used = true;
 			tagsDirty = true;
 		}
 	}
