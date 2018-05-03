@@ -7,11 +7,12 @@ using Xamarin.Forms;
 
 namespace RipOffMotivator
 {
-    public partial class AddTriggerPage : ContentPage
+    public partial class AddTagPage : ContentPage
 	{
 		readonly Repository repo;
 		INFCIntegration nfc;
-		public AddTriggerPage(Repository repo)
+
+		public AddTagPage(Repository repo)
 		{
 			this.repo = repo;
 			InitializeComponent();
@@ -20,25 +21,30 @@ namespace RipOffMotivator
 		async void OnScan(object sender, EventArgs e)
 		{
 			var title = triggerName.Text;
+			if(string.IsNullOrWhiteSpace(title))
+				return;
+
 			nfc = DependencyService.Get<INFCIntegration>();
 
-			await nfc.CreateNFCTag(title).ContinueWith(task =>
-			{
-				if (task.IsCompleted)
-					StoreTag(task.Result, title);
-			});
+			nfc.CreateNFCTag(title, StoreTag);
 
-	}
+			await Navigation.PushAsync(new TagsListPage(repo));
+		}
 
-		void StoreTag(Guid tagId, string title)
+		async void StoreTag(Guid tagId, string title)
 		{
 			repo.AddTag(new Tag{Id= tagId, Title = title});
-			repo.Commit().Wait();
+			await repo.Commit();
 		}
 
 		async void OnViewGoals(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new GoalListPage(repo));
         }
+
+		async void OnViewTags(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new TagsListPage(repo));
+		}
 	}
 }

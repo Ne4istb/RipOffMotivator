@@ -21,6 +21,10 @@ namespace RipOffMotivator.Droid
 
 			Instance = this;
 			global::Xamarin.Forms.Forms.Init(this, bundle);
+
+			Xamarin.Forms.DependencyService.Register<INFCIntegration, NFCIntegration>();
+			((NFCIntegration)Xamarin.Forms.DependencyService.Get<INFCIntegration>()).SetContext(this);
+
 			LoadApplication(new App());
 		}
 	}

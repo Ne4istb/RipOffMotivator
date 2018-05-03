@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                   x:Class="RipOffMotivator.GoalListPage"
+                   x:Class="RipOffMotivator.TagsListPage"
                    Title="Goals">
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -14,22 +14,16 @@
 			<ListView.ItemTemplate>
 				<DataTemplate>
 					<ViewCell>
-						<Grid>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="0.5*" />
-								<ColumnDefinition Width="0.3*" />
-								<ColumnDefinition Width="0.2*" />
-							</Grid.ColumnDefinitions>
-							<Label Text="{Binding Title}" VerticalTextAlignment="Center" Font="Medium,Bold" />
-							<Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:g}'}"  VerticalTextAlignment="Center" Font="Micro" />
-							<Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:C}'}" VerticalTextAlignment="Center" Font="Micro" HorizontalOptions="EndAndExpand" />
-						</Grid>
+						<StackLayout Orientation="Horizontal">
+							<Label Text="{Binding Title}" HorizontalOptions="StartAndExpand" FontSize="Medium"></Label>
+							<Button Text="Delete" CommandParameter="{Binding Id}" IsVisible="{Binding NotUsed}" Clicked="OnRemoveTag">
+							</Button>
+						</StackLayout>
 					</ViewCell>
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
 
-		<Button Text="Create New" Clicked="OnCreateGoal" />
 		<Button Text="Add Tag" Clicked="OnAddTag" />
 	</StackLayout>
 </ContentPage>

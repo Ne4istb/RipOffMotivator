@@ -41,6 +41,7 @@ namespace SmartContractDeployer
             await web3.Personal.UnlockAccount.SendRequestAsync(coinbase, DeployAccountPass);
 
             var bin = ReadFileContent(binFileName);
+
             var fromAddress = await web3.Eth.CoinBase.SendRequestAsync();
             var gas = new HexBigInteger(1000000);
 

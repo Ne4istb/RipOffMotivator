@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Nethereum.Hex.HexTypes;
 
 namespace SmartContractsProxy
 {
     public interface ISmartContractsProxy
     {
-        void AddGoal(decimal amount, DateTime executionTime, Guid rejectTriggerId);
-        void RejectAsync(Guid triggerId);
+        Task<string> AddGoalAsync(decimal amount, DateTime executionTime, Guid rejectTriggerId);
+        Task<string> RejectAsync(Guid triggerId);
     }
 }
