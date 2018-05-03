@@ -1,5 +1,4 @@
 data
-geth
-*.sol 
+geth 
 *.bin 
 *.abi
