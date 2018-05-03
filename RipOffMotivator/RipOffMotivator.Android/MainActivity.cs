@@ -68,7 +68,7 @@ namespace RipOffMotivator.Droid
 				return;
 
 			var tag = intent.GetParcelableExtra(NfcAdapter.ExtraTag) as Tag;
-			var tagId = System.Text.Encoding.UTF8.GetString(tag.GetId());
+			var tagId = BitConverter.ToString(tag.GetId()).Replace("-", "");
 
 			GoalResolved(tagId);
 		}
@@ -81,6 +81,9 @@ namespace RipOffMotivator.Droid
 
             var intent = new Intent(this, GetType()).AddFlags(ActivityFlags.SingleTop);
             var pendingIntent = PendingIntent.GetActivity(this, 0, intent, PendingIntentFlags.OneShot);
+
+            if (nfc.NfcAdapter == null)
+                return;
 
             nfc.NfcAdapter.EnableForegroundDispatch(this, pendingIntent, filters, null);
         }

@@ -38,7 +38,7 @@ namespace RipOffMotivator
 			if (!string.IsNullOrWhiteSpace(title) && long.TryParse(goalPrice.Text, out long amount))
 			{
 				var tag = ((CreateGoalBC)BindingContext).SelectedTag;
-				var rejectId = Guid.NewGuid().ToString();//await contractService.Value.AddGoalAsync(amount, date);
+				var rejectId = await contractService.Value.AddGoalAsync(amount, date);
 				repo.AddGoal(new Goal {
 					Amount = amount,
 					Date = new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, 0),

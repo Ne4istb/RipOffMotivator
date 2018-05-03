@@ -59,10 +59,10 @@ namespace RipOffMotivator.Droid
             if (ndef == null || !ndef.IsWritable)
                 return false;
 
-            var mimeBytes = Encoding.ASCII.GetBytes(ViewApeMimeType);
+            var mimeBytes = Encoding.Default.GetBytes(ViewApeMimeType);
             var id = tag.GetId();
 
-            Action(System.Text.Encoding.UTF8.GetString(id), Message);
+            Action(BitConverter.ToString(id).Replace("-", ""), Message);
             return true;
 
 

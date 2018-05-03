@@ -22,6 +22,7 @@ namespace RipOffMotivator
 		public App()
         {
             InitializeComponent();
+            
 			repo = new Repository(Current);
 			MainPage = new NavigationPage(new GoalListPage(repo));
         }
@@ -30,7 +31,8 @@ namespace RipOffMotivator
 		{
 			if (repo.GoalResolved(tagId, out Goal resolved))
 			{
-				await contractService.Value.RejectAsync(resolved.RejectTrigger);
+                await repo.Commit();
+                await contractService.Value.RejectAsync(resolved.RejectTrigger);
 			}
 
 			MainPage = new NavigationPage(new GoalListPage(repo));
