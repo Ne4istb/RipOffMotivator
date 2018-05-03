@@ -18,7 +18,7 @@ namespace RipOffMotivator
 			InitializeComponent();
 		}
 
-		async void OnScan(object sender, EventArgs e)
+		void OnScan(object sender, EventArgs e)
 		{
 			var title = triggerName.Text;
 			if(string.IsNullOrWhiteSpace(title))
@@ -27,14 +27,14 @@ namespace RipOffMotivator
 			nfc = DependencyService.Get<INFCIntegration>();
 
 			nfc.CreateNFCTag(title, StoreTag);
-
-			await Navigation.PushAsync(new TagsListPage(repo));
 		}
 
 		async void StoreTag(Guid tagId, string title)
 		{
 			repo.AddTag(new Tag{Id= tagId, Title = title});
-			await repo.Commit();
+            await repo.Commit();
+            await Navigation.PushAsync(new TagsListPage(repo));
+
 		}
 
 		async void OnViewGoals(object sender, EventArgs e)

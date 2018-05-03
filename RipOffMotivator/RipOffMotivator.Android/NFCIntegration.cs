@@ -37,10 +37,7 @@ namespace RipOffMotivator.Droid
 
             var intent = new Intent(Context, GetType()).AddFlags(ActivityFlags.SingleTop);
             var pendingIntent = PendingIntent.GetActivity(Context, 0, intent, 0);
-
-            ActivityManager am = (ActivityManager)Context.GetSystemService(ActivityService);
-            ComponentName cn = (am.GetRunningTasks(1))[0].TopActivity;
-            
+           
             if (NfcAdapter != null)
             {
                 NfcAdapter.EnableForegroundDispatch(getActivity(Context), pendingIntent, filters, null);

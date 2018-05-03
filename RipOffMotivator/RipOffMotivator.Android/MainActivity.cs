@@ -20,10 +20,13 @@ namespace RipOffMotivator.Droid
 			base.OnCreate(bundle);
 
 			Instance = this;
-			global::Xamarin.Forms.Forms.Init(this, bundle);
+			Xamarin.Forms.Forms.Init(this, bundle);
 
 			Xamarin.Forms.DependencyService.Register<INFCIntegration, NFCIntegration>();
 			((NFCIntegration)Xamarin.Forms.DependencyService.Get<INFCIntegration>()).SetContext(this);
+
+            //var nfc = new NFCIntegration();
+            //nfc.SetContext(this);
 
 			LoadApplication(new App());
 		}
