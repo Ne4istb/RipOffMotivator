@@ -25,7 +25,7 @@ namespace SmartContractsProxy
             var betting = contract.GetFunction("betting");
 
             var fromAddress = await GetFromAddress();
-            var gas = new HexBigInteger(1000000);
+            var gas = new HexBigInteger(200000);
             var weis = ConvertMillietherToWei(amountInMilliethers);
 			var uuid = Guid.NewGuid().ToString();
 
@@ -35,7 +35,7 @@ namespace SmartContractsProxy
         }
 
         HexBigInteger ConvertMillietherToWei(long amount){
-            return new HexBigInteger((long)(amount * Math.Pow(10, 15)));
+            return new HexBigInteger((long)(amount * Math.Pow(10, 10)));
         }
 
         public async Task RejectAsync(string rejectionId)

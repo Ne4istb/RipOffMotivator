@@ -38,12 +38,12 @@ namespace SmartContractDeployer
             var web3 = new Web3(server);
 
             var coinbase = new EthCoinBase(web3.Client);
-            await web3.Personal.UnlockAccount.SendRequestAsync("0xf5e9f9bf71945930ed6e5304ed8396602041a965", "", (int?)null);
+            await web3.Personal.UnlockAccount.SendRequestAsync(coinbase, DeployAccountPass);
 
             var bin = ReadFileContent(binFileName);
 
             var fromAddress = await web3.Eth.CoinBase.SendRequestAsync();
-            var gas = new HexBigInteger(1000000);
+            var gas = new HexBigInteger(2000000);
 
             var receipt = await web3.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(bin, fromAddress, gas);
 

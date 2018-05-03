@@ -1,0 +1,1 @@
+[{"constant":false,"inputs":[{"name":"id","type":"string"}],"name":"reject","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"uuid","type":"string"},{"name":"endTime","type":"uint256"}],"name":"betting","outputs":[],"payable":true,"stateMutability":"payable","type":"function"}]
