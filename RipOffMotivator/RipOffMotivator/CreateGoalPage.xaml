@@ -15,12 +15,13 @@
 				   HorizontalOptions="FillAndExpand"
 				   VerticalOptions="Center" />
 		<Entry x:Name="goalPrice"  Text=""
-				   Placeholder="Goal price"
+				   Placeholder="Goal price (in milliether)"
 				   HorizontalOptions="FillAndExpand"
 				   VerticalOptions="Center" />
 		<DatePicker x:Name="goalDate"
-						Format="g"
+						Format="d"
 						MinimumDate="{x:Static sys:DateTime.Now}"/>
+		<TimePicker x:Name="goalTime" Format="t"></TimePicker>
 
 		<Picker Title="Select a tag" ItemsSource="{Binding Tags}" ItemDisplayBinding="{Binding Title}" SelectedItem="{Binding SelectedTag, Mode=TwoWay}" />
 

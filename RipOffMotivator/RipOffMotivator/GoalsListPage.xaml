@@ -16,13 +16,13 @@
 					<ViewCell>
 						<Grid>
 							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="0.5*" />
+								<ColumnDefinition Width="0.4*" />
 								<ColumnDefinition Width="0.3*" />
-								<ColumnDefinition Width="0.2*" />
+								<ColumnDefinition Width="0.3*" />
 							</Grid.ColumnDefinitions>
-							<Label Text="{Binding Title}" VerticalTextAlignment="Center" Font="Medium,Bold" />
-							<Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:g}'}"  VerticalTextAlignment="Center" Font="Micro" />
-							<Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0:C}'}" VerticalTextAlignment="Center" Font="Micro" HorizontalOptions="EndAndExpand" />
+							<Label Text="{Binding Title}" VerticalTextAlignment="Center" FontSize="Medium" />
+							<Label Grid.Column="1" Text="{Binding Date, StringFormat='{0:g}'}"  VerticalTextAlignment="Center" FontSize="Micro" />
+							<Label Grid.Column="2" Text="{Binding Amount, StringFormat='{0} milliether(s)'}" VerticalTextAlignment="Center" FontSize="Micro" HorizontalOptions="EndAndExpand" />
 						</Grid>
 					</ViewCell>
 				</DataTemplate>
@@ -30,6 +30,7 @@
 		</ListView>
 
 		<Button Text="Create New" Clicked="OnCreateGoal" />
-		<Button Text="Add Tag" Clicked="OnAddTag" />
+		<Button Text="View Tags" Clicked="OnViewTags" IsVisible="{Binding HasTags}" />
+		<Button Text="Add Tag" Clicked="OnAddTag" IsVisible="{Binding NoTags}"/>
 	</StackLayout>
 </ContentPage>

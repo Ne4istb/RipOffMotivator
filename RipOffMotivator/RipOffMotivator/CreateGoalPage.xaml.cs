@@ -33,12 +33,13 @@ namespace RipOffMotivator
 			}
 
 			var title = goalTitle.Text;
-			var date = goalDate.Date;
-			if (!string.IsNullOrWhiteSpace(title) && decimal.TryParse(goalPrice.Text, out decimal amount))
+			DateTime date = goalDate.Date;
+			var time = goalTime.Time;
+			if (!string.IsNullOrWhiteSpace(title) && long.TryParse(goalPrice.Text, out long amount))
 			{
 				var tag = (Tag)((dynamic)BindingContext).SelectedTag;
 				//contractService.Value.AddGoal(amount, date, tag.Id);
-				repo.AddGoal(new Goal {Amount = amount, Date = date, Title = title, TagId = tag.Id});
+				repo.AddGoal(new Goal {Amount = amount, Date = new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, 0), Title = title, TagId = tag.Id});
 				repo.TagUsed(tag.Id);
 				await repo.Commit();
 			}

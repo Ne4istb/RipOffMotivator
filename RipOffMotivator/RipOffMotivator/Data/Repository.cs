@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using RipOffMotivator.Models;
 
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace RipOffMotivator.Data
 {
@@ -75,8 +76,23 @@ namespace RipOffMotivator.Data
 		IList<Tag> ReadTags()
 		{
 			if (appProperties.Properties.ContainsKey(TagsKey))
-				return Serialization.DeserializeFromJson<IList<Tag>>((string)appProperties.Properties[TagsKey]);
+			{
+				var list = Serialization.DeserializeFromJson<IList<Tag>>((string) appProperties.Properties[TagsKey]);
+				if (list.Any(t => t.Used))
+					UpdateUsed(list);
+				return list;
+			}
+
 			return null;
+		}
+
+		void UpdateUsed(IList<Tag> list)
+		{
+			list.ForEach(t => {
+				var used = Goals.Any(g => g.TagId == t.Id);
+				tagsDirty = tagsDirty || used != t.Used;
+				t.Used = used;
+			});
 		}
 
 		public void RemoveTag(Tag tag)

@@ -19,6 +19,9 @@ namespace RipOffMotivator
 			repo = repository;
 
 			listView.ItemsSource = repo.Goals;
+
+			var hasTags = repo.Tags.Any();
+			BindingContext = new {HasTags = hasTags, NoTags = !hasTags};
 		}
 
 		async void OnCreateGoal(object sender, EventArgs e)
@@ -35,6 +38,11 @@ namespace RipOffMotivator
 		async void OnAddTag(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new AddTagPage(repo));
+		}
+
+		async void OnViewTags(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new TagsListPage(repo));
 		}
 	}
 }
