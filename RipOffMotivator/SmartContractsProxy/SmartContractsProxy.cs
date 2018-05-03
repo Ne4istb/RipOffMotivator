@@ -5,13 +5,19 @@ using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
 using Nethereum.Web3;
 
+
+
+// geth --dev --rpc console --datadir="./eth-store/" --rpcapi="db,eth,net,web3,personal,web3"
+// solcjs.cmd Motivator.sol --bin --abi
+
+
 namespace SmartContractsProxy
 {
     public class SmartContractsProxy : ISmartContractsProxy
     {
         // TODO: move to config
-        const string AbiFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/Contracts/Motivator_sol_Motivator.abi";
-        const string ContractAdress = "0x11c497098f270cc6cfeda25bbd1c406027bc1cf8";
+        const string AbiFileName = "C://Source//NFW//RipOffMotivator//SmartContracts//Contracts//Motivator_sol_Motivator.abi";
+        const string ContractAdress = "0x20adf340ce0cf64cd9885d56602c45955eca34f1";
         const string SenderAddress = "";
 
         readonly Web3 web3;
@@ -32,9 +38,11 @@ namespace SmartContractsProxy
             var fromAddress = await GetFromAddress();
             var gas = new HexBigInteger(1000000);
             var weis = ConvertMillietherToWei(amountInMilliethers);
+			var uuid = Guid.NewGuid().ToString();
 
-            var rejectionId = await betting.CallAsync<long>(fromAddress, gas, weis, ToUnixTime(executionTime));
-            return rejectionId.ToString();
+
+			var rejectionId = await betting.SendTransactionAsync(fromAddress, gas, weis, null, uuid, ToUnixTime(executionTime));
+            return uuid;
         }
 
         HexBigInteger ConvertMillietherToWei(long amount){
@@ -47,9 +55,8 @@ namespace SmartContractsProxy
 
             var fromAddress = await GetFromAddress();
             var gas = new HexBigInteger(1000000);
-            var rectionTrigger = Convert.ToInt64(rejectionId);
 
-            await reject.SendTransactionAsync(fromAddress, gas, gas, null, rectionTrigger);
+            await reject.SendTransactionAsync(fromAddress, gas, gas, null, rejectionId);
         }
 
         Task<string> GetFromAddress()
