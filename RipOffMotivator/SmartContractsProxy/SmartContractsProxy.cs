@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
-using Nethereum.RPC.Eth.DTOs;
 using Nethereum.Web3;
 
 namespace SmartContractsProxy
@@ -11,52 +10,50 @@ namespace SmartContractsProxy
     public class SmartContractsProxy : ISmartContractsProxy
     {
         // TODO: move to config
-        const string AbiFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/storage_sol_Storage.abi";
-        const string ContractAdress = "0x8ff4f1044b46e5b2c4e91a89cdff272a59573caa";
+        const string AbiFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/Contracts/RipOffMotivator_sol_RipOffMotivator.abi";
+        const string ContractAdress = "0x43985f558b7e57cd0879c555d14ac85649276532";
         const string SenderAddress = "";
 
         readonly Web3 web3;
         readonly Contract contract;
 
-        public SmartContractsProxy(){
+        public SmartContractsProxy()
+        {
             web3 = new Web3();
             var abi = ReadFileContent(AbiFileName);
 
             contract = web3.Eth.GetContract(abi, ContractAdress);
         }
 
-        public async Task<string> AddGoalAsync(decimal amount, DateTime executionTime, Guid rejectTriggerId)
+        public async Task<string> AddGoalAsync(long amountInMilliethers, DateTime executionTime)
         {
-            var set = contract.GetFunction("set");
+            var betting = contract.GetFunction("betting");
 
             var fromAddress = await GetFromAddress();
             var gas = new HexBigInteger(1000000);
+            var weis = ConvertMillietherToWei(amountInMilliethers);
 
-            var receipt = await set.SendTransactionAsync(fromAddress, gas, gas, null, 42);
-            return receipt;
-
-            //var addGoal = contract.GetFunction("addGoal");
+            var rejectionId = await betting.CallAsync<long>(fromAddress, gas, gas, weis, ToUnixTime(executionTime));
+            return rejectionId.ToString();
         }
 
-        public async Task<string> RejectAsync(Guid triggerId)
+        long ConvertMillietherToWei(long amount){
+            return (long)(amount * Math.Pow(10, 15));
+        }
+
+        public async Task RejectAsync(string rejectionId)
         {
-            var get = contract.GetFunction("get");
+            var reject = contract.GetFunction("reject");
 
             var fromAddress = await GetFromAddress();
             var gas = new HexBigInteger(1000000);
+            var rectionTrigger = Convert.ToInt64(rejectionId);
 
-            var input = new TransactionInput(null, gas, fromAddress);
-            var output = await get.CallAsync<int>();
-
-            return output.ToString();
-
-            //var rejectFunc = contract.GetFunction("reject");
-
-            //var receipt = await rejectFunc
-                //.SendTransactionAndWaitForReceiptAsync(SenderAddress, null, triggerId.ToString());
+            await reject.SendTransactionAsync(fromAddress, gas, gas, null, rectionTrigger);
         }
 
-        Task<string> GetFromAddress(){
+        Task<string> GetFromAddress()
+        {
             return web3.Eth.CoinBase.SendRequestAsync();
         }
 
@@ -73,6 +70,11 @@ namespace SmartContractsProxy
             {
                 throw new ArgumentException($"Cannot read {fileName}", e);
             }
+        }
+
+        static long ToUnixTime(DateTime date)
+        {
+            return (date.ToUniversalTime().Ticks - 621355968000000000) / 10000000;
         }
     }
 }

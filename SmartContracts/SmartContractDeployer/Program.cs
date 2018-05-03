@@ -21,7 +21,7 @@ namespace SmartContractDeployer
             //var server = args[0];
             //var binFileName = args[1];
             var server = "http://localhost:8545/";
-            var binFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/storage_sol_Storage.bin";
+            var binFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/Contracts/Motivator_sol_Motivator.bin";
 
             try
             {
