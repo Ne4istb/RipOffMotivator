@@ -29,7 +29,7 @@ namespace RipOffMotivator
 			nfc.CreateNFCTag(title, StoreTag);
 		}
 
-		async void StoreTag(Guid tagId, string title)
+		async void StoreTag(string tagId, string title)
 		{
 			repo.AddTag(new Tag{Id= tagId, Title = title});
             await repo.Commit();

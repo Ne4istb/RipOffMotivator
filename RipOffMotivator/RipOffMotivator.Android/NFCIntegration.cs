@@ -17,7 +17,7 @@ namespace RipOffMotivator.Droid
         Context Context;
         public Boolean InWriteMode = false;
         string Message = string.Empty;
-        Action<Guid, string> Action;
+        Action<string, string> Action;
 
         public NFCIntegration()
         {
@@ -61,48 +61,56 @@ namespace RipOffMotivator.Droid
 
             var mimeBytes = Encoding.ASCII.GetBytes(ViewApeMimeType);
             var id = tag.GetId();
-            var apeRecord = new NdefRecord(NdefRecord.TnfMimeMedia, mimeBytes, id, Encoding.ASCII.GetBytes(Message));
-            var ndefMessage = new NdefMessage(new[] { apeRecord });
 
-            if (ndef.MaxSize < ndefMessage.ToByteArray().Length)
-                return false;
+            Action(System.Text.Encoding.UTF8.GetString(id), Message);
+            return true;
 
-            try
-            {
-                ndef.Connect();
-                ndef.WriteNdefMessage(ndefMessage);
 
-                Action(new Guid(id), Message);
-                ndef.Close();
-                return true;
-            }
-            catch (Java.IO.IOException)
-            {
-                var format = NdefFormatable.Get(tag);
-                if (format == null)
-                {
-                    return false;
-                    //DisplayMessage("Tag does not appear to support NDEF format.");
-                }
-                else
-                {
-                    try
-                    {
-                        format.Connect();
-                        format.Format(ndefMessage);
-                        Action(new Guid(id), Message);
-                        format.Close();
-                        return true;
-                    }
-                    catch (IOException)
-                    {
-                        return false;
-                    }
-                }
-            }
+            //var apeRecord = new NdefRecord(NdefRecord.TnfMimeMedia, mimeBytes, id, Encoding.ASCII.GetBytes(Message));
+            //var ndefMessage = new NdefMessage(new[] { apeRecord });
+
+            //if (ndef.MaxSize < ndefMessage.ToByteArray().Length)
+            //    return false;
+
+            //if (ndef.IsConnected)
+            //    ndef.Close();
+
+            //try
+            //{
+            //    ndef.Connect();
+            //    ndef.WriteNdefMessage(ndefMessage);
+
+            //    Action(new Guid(id), Message);
+            //    ndef.Close();
+            //    return true;
+            //}
+            //catch (Java.IO.IOException)
+            //{
+            //    var format = NdefFormatable.Get(tag);
+            //    if (format == null)
+            //    {
+            //        return false;
+            //        //DisplayMessage("Tag does not appear to support NDEF format.");
+            //    }
+            //    else
+            //    {
+            //        try
+            //        {
+            //            format.Connect();
+            //            format.Format(ndefMessage);
+            //            Action(new Guid(id), Message);
+            //            format.Close();
+            //            return true;
+            //        }
+            //        catch (IOException)
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
         }
 
-        public void CreateNFCTag(string message, Action<Guid, string> action)
+        public void CreateNFCTag(string message, Action<string, string> action)
         {
             Message = message;
             Action = action;

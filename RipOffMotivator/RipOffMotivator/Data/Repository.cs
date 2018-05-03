@@ -103,7 +103,7 @@ namespace RipOffMotivator.Data
 			}
 		}
 
-		public void TagUsed(Guid tagId)
+		public void TagUsed(string tagId)
 		{
 			Tags.First(t => t.Id == tagId).Used = true;
 			tagsDirty = true;

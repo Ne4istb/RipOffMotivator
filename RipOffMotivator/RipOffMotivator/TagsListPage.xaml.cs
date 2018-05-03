@@ -27,7 +27,7 @@ namespace RipOffMotivator
 		void OnRemoveTag(object sender, EventArgs e)
 		{
 			var item = (Button)sender;
-			var tag = tags.Items.SingleOrDefault(t => t.Id == (Guid) item.CommandParameter);
+			var tag = tags.Items.SingleOrDefault(t => t.Id.Equals(item.CommandParameter));
 			if(tag==null)
 				return;
 
