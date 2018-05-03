@@ -1,63 +1,67 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
 using Android.Nfc;
 using Android.Nfc.Tech;
-using Android.OS;
 
-namespace RipOffMotivator.Droid.NFCModule
+namespace RipOffMotivator.Droid
 {
-    class NFCIntegration : Activity, INFCIntegration
+    public class NFCIntegration : Activity, INFCIntegration
     {
         const string ViewApeMimeType = "application/vnd.xamarin.nfcxample";
 
         NfcAdapter NfcAdapter;
+        Context Context;
         Boolean InWriteMode = false;
         string Message = string.Empty;
-        Guid Id = Guid.Empty;
+        Action<Guid, string> Action;
 
-        public NFCIntegration(NfcAdapter nfcAdapter)
+        public NFCIntegration()
         {
-            NfcAdapter = nfcAdapter;
+            Context = Application.Context;
+            NfcAdapter = NfcAdapter.GetDefaultAdapter(Context);
         }
 
-        public Task<Guid> CreateNFCTag(string message)
-        {
-            Message = message;
-            Id = Guid.NewGuid();
-
-			if (EnableWriteMode())
-				return Task.FromResult(Id);
-
-			return Task.FromException<Guid>(new NotSupportedException("NFCT is not supported"));
-		}
-
-		bool EnableWriteMode()
+        void EnableWriteMode()
         {
             InWriteMode = true;
 
             var tagDetected = new IntentFilter(NfcAdapter.ActionTagDiscovered);
             var filters = new[] { tagDetected };
 
-            var intent = new Intent(this, GetType()).AddFlags(ActivityFlags.SingleTop);
-            var pendingIntent = PendingIntent.GetActivity(this, 0, intent, 0);
+            var intent = new Intent(Context, GetType()).AddFlags(ActivityFlags.SingleTop);
+            var pendingIntent = PendingIntent.GetActivity(Context, 0, intent, 0);
 
-			if (NfcAdapter != null)
-			{
-				NfcAdapter.EnableForegroundDispatch(this, pendingIntent, filters, null);
-				return true;
-			}
-			else
+            ActivityManager am = (ActivityManager)Context.GetSystemService(ActivityService);
+            ComponentName cn = (am.GetRunningTasks(1))[0].TopActivity;
+            
+            if (NfcAdapter != null)
             {
-                var alert = new AlertDialog.Builder(this).Create();
+                NfcAdapter.EnableForegroundDispatch(getActivity(Context), pendingIntent, filters, null);
+            }
+            else
+            {
+                var alert = new AlertDialog.Builder(Context).Create();
                 alert.SetMessage("NFC is not supported on this device.");
                 alert.SetTitle("NFC Unavailable");
                 alert.Show();
+            }
+        }
 
-				return false;
-			}
+        public Activity getActivity(Context context)
+        {
+            if (context == null)
+                return null;
+            if (context is ContextWrapper)
+            {
+                if (context is Activity)
+                    return (Activity)context;
+
+                return getActivity(((ContextWrapper)context).BaseContext);
+            }
+
+            return null;
         }
 
         protected override void OnNewIntent(Intent intent)
@@ -69,7 +73,6 @@ namespace RipOffMotivator.Droid.NFCModule
                 AdjustNFCTag(intent);
                 return;
             }
-
 
             if (!ViewApeMimeType.Equals(intentType, StringComparison.OrdinalIgnoreCase))
                 return;
@@ -91,7 +94,7 @@ namespace RipOffMotivator.Droid.NFCModule
 
             if (!TryUpdateTag(tag))
             {
-                var alert = new AlertDialog.Builder(this).Create();
+                var alert = new AlertDialog.Builder(Context).Create();
                 alert.SetMessage("Something went wrong when updating NFC tag");
                 alert.SetTitle("NFC Tag update fail");
                 alert.Show();
@@ -106,8 +109,8 @@ namespace RipOffMotivator.Droid.NFCModule
                 return false;
 
             var mimeBytes = Convert.FromBase64String(ViewApeMimeType);
-
-            var apeRecord = new NdefRecord(NdefRecord.TnfMimeMedia, mimeBytes, Id.ToByteArray(), Convert.FromBase64String(Message));
+            var id = tag.GetId();
+            var apeRecord = new NdefRecord(NdefRecord.TnfMimeMedia, mimeBytes, id, Convert.FromBase64String(Message));
             var ndefMessage = new NdefMessage(new[] { apeRecord });
 
             ndef.Connect();
@@ -117,7 +120,15 @@ namespace RipOffMotivator.Droid.NFCModule
 
             ndef.WriteNdefMessage(ndefMessage);
 
+            Action(new Guid(id), Message);
             return true;
         }
-	}
+        public void CreateNFCTag(string message, Action<Guid, string> action)
+        {
+            Message = message;
+            Action = action;
+
+            EnableWriteMode();
+        }
+    }
 }
