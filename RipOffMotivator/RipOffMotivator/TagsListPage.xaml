@@ -16,7 +16,7 @@
 					<ViewCell>
 						<StackLayout Orientation="Horizontal">
 							<Label Text="{Binding Title}" HorizontalOptions="StartAndExpand" FontSize="Medium"></Label>
-							<Button Text="Delete" CommandParameter="{Binding Id}" IsVisible="{Binding NotUsed}" Clicked="OnRemoveTag">
+							<Button Text="Delete" CommandParameter="{Binding SerialNumber}" IsVisible="{Binding NotUsed}" Clicked="OnRemoveTag">
 							</Button>
 						</StackLayout>
 					</ViewCell>

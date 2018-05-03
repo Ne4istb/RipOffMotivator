@@ -43,10 +43,10 @@ namespace RipOffMotivator
 					Amount = amount,
 					Date = new DateTime(date.Year, date.Month, date.Day, time.Hours, time.Minutes, 0),
 					Title = title,
-					TagId = tag.Id,
+					TagId = tag.SerialNumber,
 					RejectTrigger = rejectId
 				});
-				repo.TagUsed(tag.Id);
+				repo.TagUsed(tag.SerialNumber);
 				await repo.Commit();
 			}
 
