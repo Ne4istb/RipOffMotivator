@@ -8,4 +8,10 @@
     <PackageReference Include="Nethereum.Web3" Version="2.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="assets\Motivator_sol_Motivator.abi" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="assets\Motivator_sol_Motivator.abi" />
+  </ItemGroup>
 </Project>

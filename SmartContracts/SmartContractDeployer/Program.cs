@@ -20,7 +20,7 @@ namespace SmartContractDeployer
         {
             //var server = args[0];
             //var binFileName = args[1];
-            var server = "http://localhost:8545/";
+            var server = "http://192.168.43.66:8000/";
             var binFileName = "/Users/Ne4istb/Sources/Xamarin/RipOffMotivator/SmartContracts/Contracts/Motivator_sol_Motivator.bin";
 
             try
@@ -38,7 +38,7 @@ namespace SmartContractDeployer
             var web3 = new Web3(server);
 
             var coinbase = new EthCoinBase(web3.Client);
-            await web3.Personal.UnlockAccount.SendRequestAsync(coinbase, DeployAccountPass);
+            await web3.Personal.UnlockAccount.SendRequestAsync("0xf5e9f9bf71945930ed6e5304ed8396602041a965", "", (int?)null);
 
             var bin = ReadFileContent(binFileName);
 
